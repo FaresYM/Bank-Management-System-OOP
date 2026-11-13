@@ -10,6 +10,8 @@ A well-structured, modular backend system built from scratch using **C++** and c
 - **Client Management (CRUD):** Fully engineered system to Add, Find, Update, and Delete client accounts efficiently.
 - **Real-time Activity Logs:** An automated audit trail tracking and logging every transaction made inside the system.
 - **Basic Data Encryption & Persistence:** Implemented a character-shifting cipher (ASCII manipulation) to obfuscate user passwords before storing them in flat-file databases (`Users.txt` & `Clients.txt`).
+- **Currency Exchange System:** Integrated a complete currency module supporting real-time exchange rate updates, currency search (by country or code), and a built-in multi-currency converter calculator.
+
 
 
 ## 🛠️ Software Engineering & OOP Concepts Applied
