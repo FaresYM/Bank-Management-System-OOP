@@ -1,12 +1,16 @@
 # 🏦 Bank Management System (Console Application)
 
-A comprehensive, enterprise-level modular backend system built from scratch using **C++** and core **Object-Oriented Programming (OOP)** principles. This system simulates real-world banking operations through a secure and structured console interface.
+A well-structured, modular backend system built from scratch using **C++** and core **Object-Oriented Programming (OOP)** principles. This project simulates real-world banking operations through a secure and interactive console interface, focusing on clean code architecture and data integrity.
+
 
 ## 🔑 Core Features
-- **Secured Authentication:** Multi-user login system separating permissions between standard **Clients** and system **Admins**.
+- **Secured Authentication & Brute-Force Protection:** Multi-user login system with strict input validation and an automated **system lockout mechanism after 3 failed login attempts** to prevent unauthorized access.
+- **Role-Based Access Control (Permissions):** Separating system privileges between standard **Users** and system **Admins** to ensure data security.
 - **Transactions Management:** Supports seamless financial operations including Instant Deposits, Withdrawals, and Secure Account-to-Account Transfers.
 - **Client Management (CRUD):** Fully engineered system to Add, Find, Update, and Delete client accounts efficiently.
 - **Real-time Activity Logs:** An automated audit trail tracking and logging every transaction made inside the system.
+- **Basic Data Encryption & Persistence:** Implemented a character-shifting cipher (ASCII manipulation) to obfuscate user passwords before storing them in flat-file databases (`Users.txt` & `Clients.txt`).
+
 
 ## 🛠️ Software Engineering & OOP Concepts Applied
 Through this project, I deeply focused on applying standard software engineering practices:
@@ -29,4 +33,4 @@ The repository is split into a structured layout to separate interface logic fro
 3. Build and Run `main.cpp`.
 
 ---
-*Developed as part of an advanced backend learning roadmap guided by Eng. Mohammed Abu-Hadhoud.*
+*Developed as part of fundamentals track guided by Eng. Mohammed Abu-Hadhoud.*
