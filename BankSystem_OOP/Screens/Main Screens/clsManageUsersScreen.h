@@ -34,26 +34,32 @@ private:
 		{
 			_ShowUsersListScreen();
 			_GoBackToManageUsersMenu();
+			break;
 		}
 		case enManageUsersOption::enAddNewUser:
 		{
 			_ShowAddNewUserScreen();
 			_GoBackToManageUsersMenu();
+			break;
+
 		}
 		case enManageUsersOption::enDeleteUser:
 		{
 			_ShowDeleteUserScreen();
 			_GoBackToManageUsersMenu();
+			break;
 		}
 		case enManageUsersOption::enUpdateUser:
 		{
 			_ShowUpdateUserScreen();
 			_GoBackToManageUsersMenu();
+			break;
 		}
 		case enManageUsersOption::enFindUser:
 		{
 			_ShowFindUserScreen();
 			_GoBackToManageUsersMenu();
+			break;
 		}
 		case enManageUsersOption::enMainMenu:
 		{

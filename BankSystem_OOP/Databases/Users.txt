@@ -1,0 +1,4 @@
+Fares//Yasser//faresyasser@banksystem.test//01100000000//FaresYM//[Enc];<=>//-1
+Mohamed//Hamdy//mohamedhamdy@banksystem.test//01500000001//MohamedHM//[Enc]????//-1
+Mostafa//Mohamed//mostafamohamed@banksystem.test//01200000005//MostafaM//[Enc]====//-1
+Jamal//Al-Shafie//jamalalshafie@banksystem.test//01500000003//Jamal_Alshafie//[Enc]AAAA//177

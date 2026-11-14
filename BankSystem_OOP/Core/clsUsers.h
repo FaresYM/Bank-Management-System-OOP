@@ -15,12 +15,14 @@ using namespace std;
 class clsUsers : public clsPerson
 {
 private:
+
+	static inline const string _FileName = "Databases/Users.txt";
+
 	enum enMode {EmptyMode = 0, UpdateMode = 1, AddNewMode = 2};
 
 	enMode _Mode;
 	string _UserName;
 	string _Password;
-	string _DateTime;
 	int _Permissions;
 
 	bool _MarkedForDelete = false;
@@ -69,7 +71,7 @@ private:
 
 		fstream MyFile;
 
-		MyFile.open("Users.txt", ios::in);
+		MyFile.open(_FileName, ios::in);
 
 		if (MyFile.is_open())
 		{
@@ -91,7 +93,7 @@ private:
 	{
 		fstream MyFile;
 
-		MyFile.open("Users.txt", ios::out);
+		MyFile.open(_FileName, ios::out);
 
 		string Line;
 
@@ -115,7 +117,7 @@ private:
 	{
 		fstream MyFile;
 
-		MyFile.open("Users.txt", ios::app);
+		MyFile.open(_FileName, ios::app);
 
 		if (MyFile.is_open())
 		{
@@ -135,7 +137,7 @@ private:
 	{
 		fstream MyFile;
 
-		MyFile.open("Users.txt", ios::in);
+		MyFile.open(_FileName, ios::in);
 
 		if (MyFile.is_open())
 		{
@@ -252,7 +254,7 @@ public:
 		return _FindUser(UserName, Password, true);
 	}
 
-	enum enSaveResults { svFailedEmptyObject = 0, svSucceeded = 1, svFailedAccountNumberExists };
+	enum enSaveResults { svFailedEmptyObject = 0, svSucceeded = 1, svFailedUserNameExists };
 
 	enSaveResults Save()
 	{
@@ -275,7 +277,7 @@ public:
 		{
 			if (clsUsers::IsUserExisted(UserName))
 			{
-				return enSaveResults::svFailedAccountNumberExists;
+				return enSaveResults::svFailedUserNameExists;
 			}
 			else
 			{

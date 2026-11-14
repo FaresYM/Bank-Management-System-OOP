@@ -66,6 +66,10 @@ public:
 					cout << "\nClient was not deleted." << endl;
 				}
 			}
+			else
+			{
+				return;
+			}
 
 			Continue = clsInputValidate::ReadChar("\nDo you want to delete another client? (Y/N)? ");
 		}

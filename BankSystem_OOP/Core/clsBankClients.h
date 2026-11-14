@@ -12,6 +12,8 @@ using namespace std;
 class clsBankClients : public clsPerson
 {
 private:
+	static inline const string _FileName = "Databases/Clients.txt";
+
 	enum enMode { EmptyMode = 0, UpdateMode = 1 , AddNewMode = 2};
 	enMode _Mode;
 
@@ -68,7 +70,7 @@ private:
 
 		fstream MyFile;
 
-		MyFile.open("Clients.txt", ios::in);
+		MyFile.open(_FileName, ios::in);
 
 		if (MyFile.is_open())
 		{
@@ -90,7 +92,7 @@ private:
 	{
 		fstream MyFile;
 
-		MyFile.open("Clients.txt", ios::out);
+		MyFile.open(_FileName, ios::out);
 
 		string Line;
 
@@ -114,7 +116,7 @@ private:
 	{
 		fstream MyFile;
 
-		MyFile.open("Clients.txt", ios::app);
+		MyFile.open(_FileName, ios::app);
 
 		if (MyFile.is_open())
 		{
@@ -132,11 +134,9 @@ private:
 
 	static clsBankClients _FindClient(string AccountNumber, string PinCode, bool JoinPinCode)
 	{
-		vector <clsBankClients> vClients;
-
 		fstream MyFile;
 
-		MyFile.open("Clients.txt", ios::in);
+		MyFile.open(_FileName, ios::in);
 
 		if (MyFile.is_open())
 		{
@@ -187,7 +187,7 @@ private:
 
 public:
 
-	clsBankClients(enMode Mode, string FirstName, string LastName, string Email, string Phone, string AccountNumber, string PinCode, float AccountBalance)
+	clsBankClients(enMode Mode, string FirstName, string LastName, string Email, string Phone, string AccountNumber, string PinCode, double AccountBalance)
 		: clsPerson(FirstName, LastName, Email, Phone)
 	{
 		_Mode = Mode;
@@ -221,35 +221,19 @@ public:
 		_PinCode = PinCode;
 	}
 
-	float GetAccountBalance()
+	double GetAccountBalance()
 	{
 		return _AccountBalance;
 	}
 
-	void SetAccountBalance(float AccountBalance)
+	void SetAccountBalance(double AccountBalance)
 	{
 		_AccountBalance = AccountBalance;
 	}
 
 	__declspec(property(get = GetPinCode, put = SetPinCode)) string PinCode;
-	__declspec(property(get = GetAccountBalance, put = SetAccountBalance)) float AccountBalance;
+	__declspec(property(get = GetAccountBalance, put = SetAccountBalance)) double AccountBalance;
 
-	//We commented it because we print in UI not trhough object
-
-	/*void Print()
-	{
-		cout << "\nClient Card:";
-		cout << "\n----------------------";
-		cout << "\nFirstName     : " << FirstName;
-		cout << "\nLastName      : " << LastName;
-		cout << "\nFullName      : " << FullName();
-		cout << "\nEmail         : " << Email;
-		cout << "\nPhone         : " << Phone;
-		cout << "\nAccountNumber : " << _AccountNumber;
-		cout << "\nPinCode       : " << _PinCode;
-		cout << "\nAccountBalance: " << _AccountBalance;
-		cout << "\n----------------------\n";
-	}*/
 
 	static clsBankClients Find(string AccountNumber)
 	{

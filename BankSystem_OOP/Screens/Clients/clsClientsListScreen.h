@@ -16,8 +16,8 @@ private:
 		cout << "| " << setw(15) << left << Client.AccountNumber();
 		cout << "| " << setw(20) << left << Client.FullName();
 		cout << "| " << setw(12) << left << Client.Phone;
-		cout << "| " << setw(25) << left << Client.Email;
-		cout << "| " << setw(10) << left << Client.PinCode;
+		cout << "| " << setw(30) << left << Client.Email;
+		cout << "| " << setw(9) << left << Client.PinCode;
 		cout << "| " << setw(12) << left << Client.AccountBalance;
 	}
 public:
@@ -45,8 +45,8 @@ public:
 		cout << "| " << left << setw(15) << "Accout Number";
 		cout << "| " << left << setw(20) << "Client Name";
 		cout << "| " << left << setw(12) << "Phone";
-		cout << "| " << left << setw(25) << "Email";
-		cout << "| " << left << setw(10) << "Pin Code";
+		cout << "| " << left << setw(30) << "Email";
+		cout << "| " << left << setw(9) << "Pin Code";
 		cout << "| " << left << setw(12) << "Balance";
 		cout << "\n\t_____________________________________________________";
 		cout << "_____________________________________________________\n" << endl;

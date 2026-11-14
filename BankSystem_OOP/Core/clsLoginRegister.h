@@ -13,6 +13,8 @@ class clsLoginRegister : protected clsScreen
 {
 public:
 
+	static inline const string _FileName = "Databases/LoginRegister.txt";
+
 	struct stLoginRegisterRecord {
 		string DateTime;
 		string UserName;
@@ -62,7 +64,7 @@ private:
 	{
 		fstream MyFile;
 
-		MyFile.open("LoginRegister.txt", ios::app);
+		MyFile.open(_FileName, ios::app);
 
 		if (MyFile.is_open())
 		{
@@ -79,7 +81,7 @@ private:
 
 		fstream MyFile;
 
-		MyFile.open("LoginRegister.txt", ios::in);
+		MyFile.open(_FileName, ios::in);
 
 		if (MyFile.is_open())
 		{

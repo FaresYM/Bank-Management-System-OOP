@@ -11,6 +11,9 @@ using namespace std;
 class clsCurrency
 {
 private:
+
+	static inline const string _FileName = "Databases/Currencies.txt";
+
 	enum enMode {EmptyMode = 0, UpdateMode = 1};
 
 	enMode _Mode;
@@ -43,7 +46,7 @@ private:
 		fstream MyFile;
 		vector <clsCurrency> vCurrencies;
 
-		MyFile.open("Currencies.txt", ios::in);
+		MyFile.open(_FileName, ios::in);
 
 		if (MyFile.is_open())
 		{
@@ -66,7 +69,7 @@ private:
 	{
 		fstream MyFile;
 
-		MyFile.open("Currencies.txt", ios::out);
+		MyFile.open(_FileName, ios::out);
 
 		if (MyFile.is_open())
 		{
@@ -158,7 +161,7 @@ public:
 		fstream MyFile;
 		string TargetCountry = clsString::UpperAllString(Country);
 
-		MyFile.open("Currencies.txt", ios::in);
+		MyFile.open(_FileName, ios::in);
 
 		if (MyFile.is_open())
 		{
@@ -187,7 +190,7 @@ public:
 		fstream MyFile;
 		string TargetCurrencyCode = clsString::UpperAllString(CurrencyCode);
 
-		MyFile.open("Currencies.txt", ios::in);
+		MyFile.open(_FileName, ios::in);
 	
 		if (MyFile.is_open())
 		{

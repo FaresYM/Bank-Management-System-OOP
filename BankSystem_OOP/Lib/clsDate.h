@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include "clsString.h"
-#include "Time.h"
 
 using namespace std;
 
@@ -19,9 +18,13 @@ public:
 
 	clsDate()
 	{
-		_Day = Time::CurrentDayOfTheMonth();
-		_Month = Time::CurrentMonth();
-		_Year = Time::CurrentYear();
+		time_t t = time(0);
+		tm* now = localtime(&t);
+
+		_Day = now->tm_mday;
+		_Month = now->tm_mon + 1;
+		_Year = now->tm_year + 1900;
+
 	}
 
 	clsDate(string Date)
@@ -541,7 +544,7 @@ public:
 	{
 		clsDate Date;
 
-		vector <string> vDate = MyStringLib::SplitString(S, Separator);
+		vector <string> vDate = clsString::SplitString(S, Separator);
 
 		try
 		{

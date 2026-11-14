@@ -7,56 +7,64 @@
 
 using namespace std;
 
-class clsUpdateUserScreen : protected clsScreen
+class clsAddNewUserScreen : protected clsScreen
 {
 private:
-
-	static void ReadPermissions(int& Permissions)
+	static bool _AskYesNo(string Message)
 	{
-		char Answer;
-
-		Answer = clsInputValidate::ReadChar("\nShow Clients List? (Y/N)? ");
-
-		if (toupper(Answer) == 'Y')
-			Permissions += clsUsers::enPermissions::enClientsList;
-
-		Answer = clsInputValidate::ReadChar("\nAdd New Client? (Y/N)? ");
-
-		if (toupper(Answer) == 'Y')
-			Permissions += clsUsers::enPermissions::enAddNewClient;
-
-		Answer = clsInputValidate::ReadChar("\nDelete Client? (Y/N)? ");
-
-		if (toupper(Answer) == 'Y')
-			Permissions += clsUsers::enPermissions::enDeleteClient;
-
-		Answer = clsInputValidate::ReadChar("\nUpdate Client? (Y/N)? ");
-
-		if (toupper(Answer) == 'Y')
-			Permissions += clsUsers::enPermissions::enUpdateClient;
-
-		Answer = clsInputValidate::ReadChar("\nFind Client? (Y/N)? ");
-
-		if (toupper(Answer) == 'Y')
-			Permissions += clsUsers::enPermissions::enFindClient;
-
-		Answer = clsInputValidate::ReadChar("\nShow Transactions? (Y/N)? ");
-
-		if (toupper(Answer) == 'Y')
-			Permissions += clsUsers::enPermissions::enTransactions;
-
-		Answer = clsInputValidate::ReadChar("\nShow Manage Users? (Y/N)? ");
-
-		if (toupper(Answer) == 'Y')
-			Permissions += clsUsers::enPermissions::enManageUsers;
-
-		Answer = clsInputValidate::ReadChar("\nShow Login Register? (Y/N)? ");
-
-		if (toupper(Answer) == 'Y')
-			Permissions += clsUsers::enPermissions::enLoginRegister;
+		char Answer = clsInputValidate::ReadChar(Message);
+		return (toupper(Answer) == 'Y');
 	}
 
-	static int GetPermissions()
+	static void _ReadPermissions(int& Permissions)
+	{
+		if (_AskYesNo("\nShow Clients List? (Y/N)? "))
+		{
+			Permissions += clsUsers::enPermissions::enClientsList;
+		}
+
+		if (_AskYesNo("\nAdd New Client? (Y/N)? "))
+		{
+			Permissions += clsUsers::enPermissions::enAddNewClient;
+		}
+
+		if (_AskYesNo("\nDelete Client? (Y/N)? "))
+		{
+			Permissions += clsUsers::enPermissions::enDeleteClient;
+		}
+       
+		if (_AskYesNo("\nUpdate Client? (Y/N)? "))
+		{
+			Permissions += clsUsers::enPermissions::enUpdateClient;
+		}
+       
+		if (_AskYesNo("\nFind Client? (Y/N)? "))
+		{
+			Permissions += clsUsers::enPermissions::enFindClient;
+		}
+
+		if (_AskYesNo("\nShow Transactions? (Y/N)? "))
+		{
+			Permissions += clsUsers::enPermissions::enTransactions;
+		}
+
+		if (_AskYesNo("\nShow Manage Users? (Y/N)? "))
+		{
+			Permissions += clsUsers::enPermissions::enManageUsers;
+		}
+
+		if (_AskYesNo("\nShow Currency Exchange? (Y/N)? "))
+		{
+			Permissions += clsUsers::enPermissions::enCurrencyExchange;
+		}
+
+		if (_AskYesNo("\nShow Login Register? (Y/N)? "))
+		{
+			Permissions += clsUsers::enPermissions::enLoginRegister;
+		}
+	}
+
+	static int _GetPermissions()
 	{
 		int Permissions = 0;
 		char Answer = clsInputValidate::ReadChar("\nDo you want to give full access? (Y/N)? ");
@@ -67,7 +75,7 @@ private:
 		{
 			cout << "\nDo you want to give access to: " << endl;
 
-			ReadPermissions(Permissions);
+			_ReadPermissions(Permissions);
 		}
 
 		return Permissions;
@@ -108,63 +116,68 @@ private:
 		User.Password = clsInputValidate::ReadString();
 
 		cout << "\nPermissions: ";
-		User.Permissions = GetPermissions();
+		User.Permissions = _GetPermissions();
 	}
+
 public:
 
-	static void ShowUpdateUserScreen()
+	static void ShowAddNewUserScreen()
 	{
 		char Continue = 'Y';
 
 		while (toupper(Continue) == 'Y')
 		{
-			clsScreen::_DrawScreenHeader("\t" "   " "Update User Screen");
+			clsScreen::_DrawScreenHeader("\t" "   " "Add New User Screen");
 
-			cout << "Enter UserName: ";
-			string UserName = clsInputValidate::ReadString();
+			string UserName = clsInputValidate::ReadString("Enter UserName: ");
 
-			while (!clsUsers::IsUserExisted(UserName))
+			while (clsUsers::IsUserExisted(UserName))
 			{
-				cout << "\nUser (" << UserName << ") is not found, Enter another one: ";
+
+				cout << "\nUserName (" << UserName << ") is existed, Enter another one: ";
 				UserName = clsInputValidate::ReadString();
 			}
 
-			clsUsers User = clsUsers::Find(UserName);
-			_PrintUser(User);
+			clsUsers User = clsUsers::GetAddNewUserObject(UserName);
+			_ReadUserInfo(User);
 
-			char Answer = clsInputValidate::ReadChar("\nAre you sure you want to update this user? (Y/N)? ");
+			char Answer = clsInputValidate::ReadChar("\nAre you sure about adding this user? (Y/N)? ");
 
 			if (toupper(Answer) == 'Y')
 			{
-				_ReadUserInfo(User);
+				clsUsers::enSaveResults SaveResults;
+
+				SaveResults = User.Save();
+
+				switch (SaveResults)
+				{
+				case clsUsers::enSaveResults::svSucceeded:
+				{
+					cout << "\nAccount added successfully" << endl;
+					_PrintUser(User);
+					break;
+				}
+				case clsUsers::enSaveResults::svFailedEmptyObject:
+				{
+					cout << "\nError account was not saved because it is empty." << endl;
+					break;
+				}
+				case clsUsers::enSaveResults::svFailedUserNameExists:
+				{
+					cout << "\nError account was not saved because user name is used." << endl;
+					break;
+				}
+				}
 			}
 			else
 			{
-				cout << "\nUser wasn't updated!" << endl;
+				cout << "\nOperation cancelled. Client wasn't added!" << endl;
 				return;
 			}
 
-			clsUsers::enSaveResults SaveResults;
-
-			SaveResults = User.Save();
-
-			switch (SaveResults)
-			{
-			case clsUsers::enSaveResults::svSucceeded:
-			{
-				_PrintUser(User);
-				cout << "\nUser updated successfully!\n";
-				break;
-			}
-			case clsUsers::enSaveResults::svFailedEmptyObject:
-			{
-				cout << "\nError Account was not saved because it is empty.\n";
-				break;
-			}
-			}
-
-			Continue = clsInputValidate::ReadChar("\nDo you want to update another user? (Y/N)? ");
+			Continue = clsInputValidate::ReadChar("\nDo you want to add another user? (Y/N)? ");
 		}
 	}
+
 };
 

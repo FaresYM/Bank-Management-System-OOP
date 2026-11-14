@@ -61,6 +61,10 @@ public:
 					cout << "\nUser was not deleted." << endl;
 				}
 			}
+			else
+			{
+				return;
+			}
 
 			Continue = clsInputValidate::ReadChar("\nDo you want to delete another user? (Y/N)? ");
 		}
